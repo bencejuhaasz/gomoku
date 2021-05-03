@@ -3,15 +3,16 @@
 #include "graphics.hpp"
 #include <vector>
 
-using namespace std;
+using namespace genv;
 
 class board: public widget {
 private:
-  int size;
+  int size_;
   std::vector<std::vector<int>> * fields;
 public:
   void place(int,int);
   void clear;
+  void draw();
 
 };
 
