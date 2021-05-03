@@ -1,5 +1,6 @@
 #include "graphics.hpp"
 #include "board.hpp"
+#include "widget.hpp"
 #include <vector>
 
 using namespace genv;
