@@ -12,7 +12,7 @@ private:
   std::vector<std::vector<int>> * fields;
 public:
   void place(int,int);
-  void clear;
+  void clear();
   void draw();
 
 };
