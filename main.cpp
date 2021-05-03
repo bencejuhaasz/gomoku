@@ -9,6 +9,7 @@ using namespace std;
 using namespace genv;
 
 class GameMaster {
+  std::vector<std::vector<int>> fields;
 
   GameMaster() {
     gout.open(600,600);
