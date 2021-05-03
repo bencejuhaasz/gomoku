@@ -1,5 +1,5 @@
-#ifndef WIDGETS_HPP_INCLUDED
-#define WIDGETS_HPP_INCLUDED
+#ifndef WIDGET_HPP_INCLUDED
+#define WIDGET_HPP_INCLUDED
 
 #include "graphics.hpp"
 
