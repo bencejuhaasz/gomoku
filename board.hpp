@@ -1,6 +1,7 @@
 #ifndef BOARD_HPP_INCLUDED
 #define BOARD_HPP_INCLUDED
 #include "graphics.hpp"
+#include "widget.hpp"
 #include <vector>
 
 using namespace genv;
