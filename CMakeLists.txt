@@ -14,8 +14,9 @@ add_library( graphics graphics.cpp )
 add_library(widget widget.cpp)
 add_library(num_set num_set.cpp)
 add_library(num_select num_select.cpp)
+add_library(board board.cpp)
 add_executable( test_graphics main.cpp )
 
 
 
-target_link_libraries( test_graphics graphics num_set num_select widgets)
+target_link_libraries( test_graphics graphics num_set num_select widgets board)
