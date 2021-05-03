@@ -10,6 +10,10 @@ using namespace genv;
 
 class GameMaster {
 
+  GameMaster() {
+    gout.open(600,600);
+  }
+
 };
 
 int main() {
