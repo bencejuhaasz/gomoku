@@ -6,21 +6,26 @@
 #include "num_set.hpp"
 #include "board.hpp"
 
-using namespace std;
 using namespace genv;
 
 class GameMaster {
   std::vector<std::vector<int>> fields;
-  board GameBoard = new board(50,50,15);
 
   GameMaster() {
     gout.open(600,600);
-    GameBoard.draw();
+    game_board.draw();
   }
 
 };
 
 int main() {
-  GameMaster gomoku = new GameMaster();
+  board gb = new board(50,50,15);
+  gout.open(600,600);
+  game_board.draw();
+  gout << refresh;
+  event ev;
+  while (gin >> ev) {
+    /* code */
+  }
   return 0;
 }
