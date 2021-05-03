@@ -19,4 +19,4 @@ add_executable( test_graphics main.cpp )
 
 
 
-target_link_libraries( test_graphics graphics num_set num_select widgets board)
+target_link_libraries( test_graphics graphics num_set num_select board widget)

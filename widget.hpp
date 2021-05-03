@@ -11,6 +11,5 @@ public:
     virtual bool isover(int mx, int my);
     virtual void draw() = 0;
     virtual void handle(genv::event ev) = 0;
-    virtual std::string get() = 0;
 };
 #endif // WIDGETS_HPP_INCLUDED

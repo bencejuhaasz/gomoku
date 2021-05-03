@@ -12,9 +12,10 @@ private:
   std::vector<std::vector<int>> * fields;
 public:
   board(int,int,int);
-  virtual void place(int,int);
-  virtual void clear();
-  virtual void draw();
+  void place(int,int);
+  void clear();
+  void draw();
+  void handle(genv::event ev);
 
 };
 

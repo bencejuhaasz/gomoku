@@ -1,6 +1,6 @@
 #include "graphics.hpp"
-#include "board.hpp"
 #include "widget.hpp"
+#include "board.hpp"
 #include <vector>
 
 using namespace genv;
@@ -19,5 +19,16 @@ void board::draw() {
       gout << box(27,27);
     }
   }
+
+}
+
+void board::place(int x, int y) {
+
+}
+void board::clear() {
+
+}
+
+void board::handle(genv::event ev) {
 
 }
