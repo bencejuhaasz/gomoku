@@ -9,7 +9,7 @@ board::board(int x, int y, int n): widget(x,y,n*30,n*30), size_(n) {
 
 }
 
-board::draw() {
+void board::draw() {
   gout << color(255,255,255);
   for (size_t i = 0; i < size_; i++) {
     for (size_t j = 0; j < size_; j++) {
