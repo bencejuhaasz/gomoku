@@ -5,18 +5,24 @@
 #include "num_select.hpp"
 #include "num_set.hpp"
 #include "field.hpp"
+#include "board.hpp"
 
 using namespace genv;
 
 class GameMaster {
   std::vector<widget*> v;
   std::vector<std::vector<int>> fields;
-  field * f = new field(100,100,50);
+  //board * b = new board(10,10,5,10);
+  field * f = new field(30,30,50);
+  field * f2 = new field(60,60,50);
 public:
   GameMaster() {
     gout.open(800,800);
+    //v.push_back(b);
     v.push_back(f);
+    //b->draw();
     f->draw();
+    f2->draw();
     gout << refresh;
   }
 
@@ -25,15 +31,6 @@ public:
     while (gin >> ev) {
       if (ev.type==ev_mouse&&ev.button==btn_left) {
         std::cout << ev.pos_x << " " << ev.pos_y << '\n';
-      }
-      if (ev.type==ev_mouse&&ev.button==btn_right) {
-        f->set(2);
-      }
-      if (ev.type==ev_mouse&&ev.button==btn_middle) {
-        f->set(0);
-      }
-      for (size_t i = 0; i < v.size(); i++) {
-        v[i]->draw();
       }
       gout << refresh;
     }
