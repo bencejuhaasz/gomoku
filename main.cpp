@@ -104,17 +104,17 @@ public:
         for (size_t i = 0; i < 15; i++) {
           for (size_t j = 0; j < 15; j++) {
             if (widgets[i][j]->isover(ev.pos_x,ev.pos_y)) {
-              if (turn_cross) {
-                fields[i][j]->set(0);
+              if (turn_cross&&fields[i][j]->get()==0) {
                 fields[i][j]->draw();
                 fields[i][j]->set(1);
                 turn_cross=false;
               }
               else {
-                fields[i][j]->set(0);
-                fields[i][j]->draw();
-                fields[i][j]->set(2);
-                turn_cross=true;
+                if (fields[i][j]->get()==0) {
+                  fields[i][j]->draw();
+                  fields[i][j]->set(2);
+                  turn_cross=true;
+                }
               }
 
             }
