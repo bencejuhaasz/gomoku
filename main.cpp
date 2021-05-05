@@ -14,55 +14,75 @@ class GameMaster {
   std::vector<std::vector<widget*>> widgets;
 public:
   bool check4win() {
-    int cntvert_x = 0;
-    int cnthor_x = 0;
-    int cntvert_o = 0;
-    int cnthor_o = 0;
-    int crossl_o = 0;
-    int crossl_x = 0;
-    int crossr_o = 0;
-    int crossr_x = 0;
-    for (size_t i = 1; i < 15; i++) {
-      for (size_t j = 1; j < 15; j++) {
-        //horizontal
+    int o_horizontal = 0;
+    int x_horizontal = 0;
+    int o_vertical = 0;
+    int x_vertical = 0;
+    int o_crossl = 0;
+    int x_crossl = 0;
+    int o_crossr = 0;
+    int x_crossr = 0;
+    for (size_t i = 1; i < fields.size(); i++) {
+      for (size_t j = 1; j < fields.size(); j++) {
         if (fields[i-1][j]->get()==fields[i][j]->get()) {
           if (fields[i][j]->get()==1) {
-            cntvert_x++;
+            x_horizontal++;
           }
           if (fields[i][j]->get()==2) {
-            cntvert_o++;
-          }
-        }
-        //vertical
-        if (fields[i][j-1]->get()==fields[i][j]->get()) {
-          if (fields[i][j]->get()==1) {
-            cnthor_x++;
-          }
-          if (fields[i][j]->get()==2) {
-            cnthor_o++;
-          }
-        }
-        //crossl
-        if (fields[i-1][j-1]->get()==fields[i][j]->get()) {
-          if (fields[i][j]->get()==1) {
-            crossl_x++;
-          }
-          if (fields[i][j]->get()==2) {
-            crossl_o++;
-          }
-        }
-        //crossr
-        if (fields[i-1][j]->get()==fields[i][j-1]->get()) {
-          if (fields[i][j]->get()==1) {
-            crossr_x++;
-          }
-          if (fields[i][j]->get()==2) {
-            crossr_o++;
+            o_horizontal++;
           }
         }
       }
     }
-    if (cntvert_o>=4||cntvert_x>=4||cnthor_o>=4||cnthor_x>=4||crossl_o>=3||crossl_x>3||crossr_o>=5||crossr_x>=5) {
+    for (size_t i = 1; i < fields.size(); i++) {
+      for (size_t j = 1; j < fields.size(); j++) {
+        if (fields[i][j-1]->get()==fields[i][j]->get()) {
+          if (fields[i][j]->get()==1) {
+            x_vertical++;
+          }
+          if (fields[i][j]->get()==2) {
+            o_vertical++;
+          }
+        }
+      }
+    }
+    for (size_t i = 1; i < fields.size(); i++) {
+      for (size_t j = 1; j < fields.size(); j++) {
+        if (fields[i][j-1]->get()==fields[i][j]->get()) {
+          if (fields[i][j]->get()==1) {
+            x_vertical++;
+          }
+          if (fields[i][j]->get()==2) {
+            o_vertical++;
+          }
+        }
+      }
+    }
+    for (size_t i = 1; i < fields.size(); i++) {
+      for (size_t j = 1; j < fields.size(); j++) {
+        if (fields[i-1][j-1]->get()==fields[i][j]->get()) {
+          if (fields[i][j]->get()==1) {
+            x_crossl++;
+          }
+          if (fields[i][j]->get()==2) {
+            o_crossl++;
+          }
+        }
+      }
+    }
+    for (size_t i = 1; i < fields.size(); i++) {
+      for (size_t j = 1; j < fields.size(); j++) {
+        if (fields[i-1][j]->get()==fields[i][j-1]->get()&&(fields[i][j]->get()==1||fields[i][j]->get()==2)) {
+          if (fields[i][j]->get()==1) {
+            x_crossr++;
+          }
+          if (fields[i][j]->get()==2) {
+            o_crossr++;
+          }
+        }
+      }
+    }
+    if (o_horizontal>3||x_horizontal>3||o_vertical>3||x_vertical>3||o_crossl>3||x_crossl>3||o_crossr>4||x_crossr>4) {
       return true;
     }
     return false;
@@ -123,7 +143,7 @@ public:
       }
       draw();
       if (check4win()) {
-        break;
+        std::cout << "error" << '\n';
       }
     }
   }
