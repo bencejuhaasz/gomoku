@@ -18,14 +18,12 @@ void field::set(int state) {
 void field::draw() {
   if (state_==0) {
     gout << move_to(x_,y_);
-    gout << move(3,3);
     gout << color(255,255,255);
     gout << box(size_x_,size_y_);
   }
 
   if (state_==1) {
     gout << move_to(x_,y_);
-    gout << move(3,3);
     gout << color(255,255,255);
     gout << box(size_x_,size_y_);
     gout << color(0,0,255);

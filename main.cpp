@@ -5,25 +5,41 @@
 #include "num_select.hpp"
 #include "num_set.hpp"
 #include "field.hpp"
-#include "board.hpp"
 
 using namespace genv;
 
 class GameMaster {
-  std::vector<widget*> v;
-  std::vector<std::vector<int>> fields;
-  //board * b = new board(10,10,5,10);
-  field * f = new field(30,30,50);
-  field * f2 = new field(60,60,50);
+  bool turn_cross = true;
+  std::vector<std::vector<field*>> fields;
+  std::vector<std::vector<widget*>> widgets;
 public:
-  GameMaster() {
-    gout.open(800,800);
-    //v.push_back(b);
-    v.push_back(f);
-    //b->draw();
-    f->draw();
-    f2->draw();
+  void draw() {
+    gout << move_to(0,0);
+    gout << color(255,0,0);
+    gout << box(899,899);
+    gout << move_to(0,0);
+    for (size_t i = 0; i < 15; i++) {
+      for (size_t j = 0; j < 15; j++) {
+        fields[i][j]->draw();
+      }
+    }
     gout << refresh;
+  }
+  GameMaster() {
+    gout.open(750,750);
+    for (size_t i = 0; i < 15; i++) {
+      std::vector<field*> line;
+      std::vector<widget*> line2;
+      for (size_t j = 0; j < 15; j++) {
+        field * f = new field(i*50,j*50,50);
+        line.push_back(f);
+        line2.push_back(f);
+      }
+      fields.push_back(line);
+      widgets.push_back(line2);
+    }
+    //predraw everything - is this needed ?
+    draw();
   }
 
   void event_loop() {
@@ -31,8 +47,15 @@ public:
     while (gin >> ev) {
       if (ev.type==ev_mouse&&ev.button==btn_left) {
         std::cout << ev.pos_x << " " << ev.pos_y << '\n';
+        for (size_t i = 0; i < 15; i++) {
+          for (size_t j = 0; j < 15; j++) {
+            if (widgets[i][j]->isover(ev.pos_x,ev.pos_y)) {
+              fields[i][j]->set(1);
+            }
+          }
+        }
       }
-      gout << refresh;
+      draw();
     }
   }
 
