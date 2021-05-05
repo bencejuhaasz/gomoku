@@ -18,6 +18,10 @@ public:
     int cnthor_x = 0;
     int cntvert_o = 0;
     int cnthor_o = 0;
+    int crossl_o = 0;
+    int crossl_x = 0;
+    int crossr_o = 0;
+    int crossr_x = 0;
     for (size_t i = 1; i < 15; i++) {
       for (size_t j = 1; j < 15; j++) {
         //horizontal
@@ -38,9 +42,27 @@ public:
             cnthor_o++;
           }
         }
+        //crossl
+        if (fields[i-1][j-1]->get()==fields[i][j]->get()) {
+          if (fields[i][j]->get()==1) {
+            crossl_x++;
+          }
+          if (fields[i][j]->get()==2) {
+            crossl_o++;
+          }
+        }
+        //crossr
+        if (fields[i-1][j]->get()==fields[i][j-1]->get()) {
+          if (fields[i][j]->get()==1) {
+            crossr_x++;
+          }
+          if (fields[i][j]->get()==2) {
+            crossr_o++;
+          }
+        }
       }
     }
-    if (cntvert_o>=4||cntvert_x>=4||cnthor_o>=4||cnthor_x>=4) {
+    if (cntvert_o>=4||cntvert_x>=4||cnthor_o>=4||cnthor_x>=4||crossl_o>=3||crossl_x>3||crossr_o>=5||crossr_x>=5) {
       return true;
     }
     return false;
