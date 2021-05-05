@@ -13,6 +13,38 @@ class GameMaster {
   std::vector<std::vector<field*>> fields;
   std::vector<std::vector<widget*>> widgets;
 public:
+  bool check4win() {
+    int cntvert_x = 0;
+    int cnthor_x = 0;
+    int cntvert_o = 0;
+    int cnthor_o = 0;
+    for (size_t i = 1; i < 15; i++) {
+      for (size_t j = 1; j < 15; j++) {
+        //horizontal
+        if (fields[i-1][j]->get()==fields[i][j]->get()) {
+          if (fields[i][j]->get()==1) {
+            cntvert_x++;
+          }
+          if (fields[i][j]->get()==2) {
+            cntvert_o++;
+          }
+        }
+        //vertical
+        if (fields[i][j-1]->get()==fields[i][j]->get()) {
+          if (fields[i][j]->get()==1) {
+            cnthor_x++;
+          }
+          if (fields[i][j]->get()==2) {
+            cnthor_o++;
+          }
+        }
+      }
+    }
+    if (cntvert_o>=4||cntvert_x>=4||cnthor_o>=4||cnthor_x>=4) {
+      return true;
+    }
+    return false;
+  }
   void draw() {
     gout << move_to(0,0);
     gout << color(255,0,0);
@@ -50,12 +82,27 @@ public:
         for (size_t i = 0; i < 15; i++) {
           for (size_t j = 0; j < 15; j++) {
             if (widgets[i][j]->isover(ev.pos_x,ev.pos_y)) {
-              fields[i][j]->set(1);
+              if (turn_cross) {
+                fields[i][j]->set(0);
+                fields[i][j]->draw();
+                fields[i][j]->set(1);
+                turn_cross=false;
+              }
+              else {
+                fields[i][j]->set(0);
+                fields[i][j]->draw();
+                fields[i][j]->set(2);
+                turn_cross=true;
+              }
+
             }
           }
         }
       }
       draw();
+      if (check4win()) {
+        break;
+      }
     }
   }
 

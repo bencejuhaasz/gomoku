@@ -15,17 +15,21 @@ void field::set(int state) {
   }
 }
 
+int field::get() {
+  return state_;
+}
+
 void field::draw() {
   if (state_==0) {
     gout << move_to(x_,y_);
     gout << color(255,255,255);
-    gout << box(size_x_,size_y_);
+    gout << box(size_x_-3,size_y_-3);
   }
 
   if (state_==1) {
     gout << move_to(x_,y_);
     gout << color(255,255,255);
-    gout << box(size_x_,size_y_);
+    gout << box(size_x_-3,size_y_-3);
     gout << color(0,0,255);
     gout << move_to(x_+3,y_+size_y_-3);
     gout << line_to(x_+size_x_-3,y_+3);
@@ -36,8 +40,8 @@ void field::draw() {
   if (state_==2) {
     gout << move_to(x_,y_);
     int r = size_x_/2-4;
-    int x = x_+size_x_/2+2;
-    int y = y_+size_x_/2+2;
+    int x = x_+size_x_/2;
+    int y = y_+size_x_/2;
     for (int i = x-r; i <= x+r; i++) {
       for (int j = y-r; j <= y+r; j++) {
         if ((i-x)*(i-x)+(j-y)*(j-y)<r*r) {

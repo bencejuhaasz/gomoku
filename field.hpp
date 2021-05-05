@@ -12,6 +12,7 @@ public:
   field(int,int,int);
   void draw();
   void set(int);
+  int get();
   void handle(genv::event);
 
 };
