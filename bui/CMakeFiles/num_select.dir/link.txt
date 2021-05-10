@@ -1,0 +1,2 @@
+/usr/bin/ar qc libnum_select.a CMakeFiles/num_select.dir/num_select.cpp.o
+/usr/bin/ranlib libnum_select.a

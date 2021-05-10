@@ -14,75 +14,16 @@ class GameMaster {
   std::vector<std::vector<widget*>> widgets;
 public:
   bool check4win() {
-    int o_horizontal = 0;
-    int x_horizontal = 0;
-    int o_vertical = 0;
-    int x_vertical = 0;
-    int o_crossl = 0;
-    int x_crossl = 0;
-    int o_crossr = 0;
-    int x_crossr = 0;
-    for (size_t i = 1; i < fields.size(); i++) {
-      for (size_t j = 1; j < fields.size(); j++) {
-        if (fields[i-1][j]->get()==fields[i][j]->get()) {
-          if (fields[i][j]->get()==1) {
-            x_horizontal++;
-          }
-          if (fields[i][j]->get()==2) {
-            o_horizontal++;
-          }
+    int prev = 0;
+    int cnt = 0;
+    for (int i = 0; i < fields.size()-1; i++) {
+      for (size_t j = 0; j < fields.size(); j++) {
+        while (fields[i+1][j]->get()==fields[i][j]->get()) {
+          /* code */
         }
       }
     }
-    for (size_t i = 1; i < fields.size(); i++) {
-      for (size_t j = 1; j < fields.size(); j++) {
-        if (fields[i][j-1]->get()==fields[i][j]->get()) {
-          if (fields[i][j]->get()==1) {
-            x_vertical++;
-          }
-          if (fields[i][j]->get()==2) {
-            o_vertical++;
-          }
-        }
-      }
-    }
-    for (size_t i = 1; i < fields.size(); i++) {
-      for (size_t j = 1; j < fields.size(); j++) {
-        if (fields[i][j-1]->get()==fields[i][j]->get()) {
-          if (fields[i][j]->get()==1) {
-            x_vertical++;
-          }
-          if (fields[i][j]->get()==2) {
-            o_vertical++;
-          }
-        }
-      }
-    }
-    for (size_t i = 1; i < fields.size(); i++) {
-      for (size_t j = 1; j < fields.size(); j++) {
-        if (fields[i-1][j-1]->get()==fields[i][j]->get()) {
-          if (fields[i][j]->get()==1) {
-            x_crossl++;
-          }
-          if (fields[i][j]->get()==2) {
-            o_crossl++;
-          }
-        }
-      }
-    }
-    for (size_t i = 1; i < fields.size(); i++) {
-      for (size_t j = 1; j < fields.size(); j++) {
-        if (fields[i-1][j]->get()==fields[i][j-1]->get()&&(fields[i][j]->get()==1||fields[i][j]->get()==2)) {
-          if (fields[i][j]->get()==1) {
-            x_crossr++;
-          }
-          if (fields[i][j]->get()==2) {
-            o_crossr++;
-          }
-        }
-      }
-    }
-    if (o_horizontal>3||x_horizontal>3||o_vertical>3||x_vertical>3||o_crossl>3||x_crossl>3||o_crossr>4||x_crossr>4) {
+    if (cnt==5) {
       return true;
     }
     return false;
@@ -143,7 +84,7 @@ public:
       }
       draw();
       if (check4win()) {
-        std::cout << "error" << '\n';
+        break;
       }
     }
   }
