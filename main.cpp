@@ -120,7 +120,6 @@ public:
       fields.push_back(line);
       widgets.push_back(line2);
     }
-    //predraw everything - is this needed ?
     draw();
   }
 
