@@ -1,9 +1,5 @@
-#include <iostream>
-#include <vector>
 #include "widget.hpp"
 #include "graphics.hpp"
-#include "num_select.hpp"
-#include "num_set.hpp"
 #include "field.hpp"
 
 using namespace genv;
@@ -14,20 +10,67 @@ class GameMaster {
   std::vector<std::vector<widget*>> widgets;
 public:
   bool check4win() {
-    int prev = 0;
+    int state=0;
     int cnt = 0;
-    for (int i = 0; i < fields.size()-1; i++) {
-      for (size_t j = 0; j < fields.size(); j++) {
-        while (fields[i+1][j]->get()==fields[i][j]->get()) {
-          /* code */
+
+    for (size_t i = 0; i < 15; i++) {
+      for (size_t j = 0; j < 15; j++) {
+        //horizontal, cross
+        if (fields[i][j]->get()==1) {
+          for (size_t h = 1; h <= 4; h++) {
+            if (fields[i+h][j]->get()==1) {
+              cnt++;
+            }
+          }
+          if (cnt>=4) {
+            return true;
+          }
+          cnt = 0;
         }
+        //horizontal,circle
+        if (fields[i][j]->get()==2) {
+          for (size_t h = 1; h <= 4; h++) {
+            if (fields[i+h][j]->get()==2) {
+              cnt++;
+            }
+          }
+          if (cnt>=4) {
+            return true;
+          }
+          cnt = 0;
+        }
+        //vertical,cross
+        if (fields[i][j]->get()==1) {
+          for (size_t h = 1; h <= 4; h++) {
+            if (fields[i][j+h]->get()==1) {
+              cnt++;
+            }
+          }
+          if (cnt>=4) {
+            return true;
+          }
+          cnt = 0;
+        }
+
+        //vertical,circle
+        if (fields[i][j]->get()==2) {
+          for (size_t h = 1; h <= 4; h++) {
+            if (fields[i][j+h]->get()==2) {
+              cnt++;
+            }
+          }
+          if (cnt>=4) {
+            return true;
+          }
+          cnt = 0;
+        }
+
+
       }
     }
-    if (cnt==5) {
-      return true;
-    }
+
     return false;
-  }
+}
   void draw() {
     gout << move_to(0,0);
     gout << color(255,0,0);
@@ -61,7 +104,6 @@ public:
     event ev;
     while (gin >> ev) {
       if (ev.type==ev_mouse&&ev.button==btn_left) {
-        std::cout << ev.pos_x << " " << ev.pos_y << '\n';
         for (size_t i = 0; i < 15; i++) {
           for (size_t j = 0; j < 15; j++) {
             if (widgets[i][j]->isover(ev.pos_x,ev.pos_y)) {
