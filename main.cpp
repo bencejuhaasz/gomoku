@@ -1,6 +1,7 @@
 #include "widget.hpp"
 #include "graphics.hpp"
 #include "field.hpp"
+#include <iostream>
 
 using namespace genv;
 
@@ -9,65 +10,88 @@ class GameMaster {
   std::vector<std::vector<field*>> fields;
   std::vector<std::vector<widget*>> widgets;
 public:
-  bool check4win() {
-    int state=0;
-    int cnt = 0;
-
+  void table_clear() {
     for (size_t i = 0; i < 15; i++) {
       for (size_t j = 0; j < 15; j++) {
-        //horizontal, cross
-        if (fields[i][j]->get()==1) {
-          for (size_t h = 1; h <= 4; h++) {
-            if (fields[i+h][j]->get()==1) {
-              cnt++;
-            }
-          }
-          if (cnt>=4) {
-            return true;
-          }
-          cnt = 0;
-        }
-        //horizontal,circle
-        if (fields[i][j]->get()==2) {
-          for (size_t h = 1; h <= 4; h++) {
-            if (fields[i+h][j]->get()==2) {
-              cnt++;
-            }
-          }
-          if (cnt>=4) {
-            return true;
-          }
-          cnt = 0;
-        }
-        //vertical,cross
-        if (fields[i][j]->get()==1) {
-          for (size_t h = 1; h <= 4; h++) {
-            if (fields[i][j+h]->get()==1) {
-              cnt++;
-            }
-          }
-          if (cnt>=4) {
-            return true;
-          }
-          cnt = 0;
-        }
-
-        //vertical,circle
-        if (fields[i][j]->get()==2) {
-          for (size_t h = 1; h <= 4; h++) {
-            if (fields[i][j+h]->get()==2) {
-              cnt++;
-            }
-          }
-          if (cnt>=4) {
-            return true;
-          }
-          cnt = 0;
-        }
-
-
+        fields[i][j]->set(0);
       }
     }
+  }
+  bool table_full() {
+    for (size_t i = 0; i < 15; i++) {
+      for (size_t j = 0; j < 15; j++) {
+        if (fields[i][j]->get()==0) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+  bool check4win(int whotocheck) {
+    int cnt = 0;
+
+    if (whotocheck==1) {
+      for (size_t i = 0; i < 15; i++) {
+        for (size_t j = 0; j < 15; j++) {
+          //horizontal, cross
+          if (fields[i][j]->get()==1&&i<11) {
+            for (size_t h = 1; h <= 4; h++) {
+              if (fields[i+h][j]->get()==1) {
+                cnt++;
+              }
+            }
+            if (cnt>=4) {
+              return true;
+            }
+            cnt = 0;
+          }
+          //vertical,cross
+          if (fields[i][j]->get()==1&&j<11) {
+            for (size_t h = 1; h <= 4; h++) {
+              if (fields[i][j+h]->get()==1) {
+                cnt++;
+              }
+            }
+            if (cnt>=4) {
+              return true;
+            }
+            cnt = 0;
+          }
+        }
+      }
+    }
+    if (whotocheck==2) {
+      for (size_t i = 0; i < 15; i++) {
+        for (size_t j = 0; j < 15; j++) {
+          //horizontal,circle
+          if (fields[i][j]->get()==2&&i<11) {
+            for (size_t h = 1; h <= 4; h++) {
+              if (fields[i+h][j]->get()==2) {
+                cnt++;
+              }
+            }
+            if (cnt>=4) {
+              return true;
+            }
+            cnt = 0;
+          }
+          //vertical,circle
+          if (fields[i][j]->get()==2&&j<11) {
+            for (size_t h = 1; h <= 4; h++) {
+              if (fields[i][j+h]->get()==2) {
+                cnt++;
+              }
+            }
+            if (cnt>=4) {
+              return true;
+            }
+            cnt = 0;
+          }
+        }
+      }
+    }
+
+
 
     return false;
 }
@@ -125,8 +149,50 @@ public:
         }
       }
       draw();
-      if (check4win()) {
-        break;
+      if (table_full()) {
+        gout << move_to(175,300);
+        gout << color(0,0,0);
+        gout << box(350,150);
+        gout << move_to(175,375);
+        gout << color(0,255,0);
+        gout << text("nobody wins - press any key to restart");
+        gout << refresh;
+        while (gin >> ev) {
+          if (ev.type == ev_key) {
+            table_clear();
+            break;
+          }
+        }
+      }
+      if (check4win(1)) {
+        gout << move_to(175,300);
+        gout << color(0,0,0);
+        gout << box(350,150);
+        gout << move_to(175,375);
+        gout << color(0,0,255);
+        gout << text("blue wins - press any key to restart");
+        gout << refresh;
+        while (gin >> ev) {
+          if (ev.type == ev_key) {
+            table_clear();
+            break;
+          }
+        }
+      }
+      if (check4win(2)) {
+        gout << move_to(175,300);
+        gout << color(0,0,0);
+        gout << box(350,150);
+        gout << move_to(175,375);
+        gout << color(255,0,0);
+        gout << text("red wins - press any key to restart");
+        gout << refresh;
+        while (gin >> ev) {
+          if (ev.type == ev_key) {
+            table_clear();
+            break;
+          }
+        }
       }
     }
   }
