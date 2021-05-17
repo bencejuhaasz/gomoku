@@ -1,8 +1,0 @@
-/home/user/gomoku/bui/CMakeFiles/rebuild_cache.dir
-/home/user/gomoku/bui/CMakeFiles/edit_cache.dir
-/home/user/gomoku/bui/CMakeFiles/num_select.dir
-/home/user/gomoku/bui/CMakeFiles/num_set.dir
-/home/user/gomoku/bui/CMakeFiles/field.dir
-/home/user/gomoku/bui/CMakeFiles/widget.dir
-/home/user/gomoku/bui/CMakeFiles/test_graphics.dir
-/home/user/gomoku/bui/CMakeFiles/graphics.dir

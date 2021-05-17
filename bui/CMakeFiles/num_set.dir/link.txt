@@ -1,2 +1,0 @@
-/usr/bin/ar qc libnum_set.a CMakeFiles/num_set.dir/num_set.cpp.o
-/usr/bin/ranlib libnum_set.a
